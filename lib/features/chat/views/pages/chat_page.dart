@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chat_app/features/auth/manager/auth_cubit/auth_cubit.dart';
 
+import 'users_list_page.dart';
+
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
 
@@ -25,19 +27,29 @@ class _ChatPageState extends State<ChatPage> {
           title: const Text("Chat"),
           actions: [
             IconButton(
-                onPressed: () async {
-                  await authCubit.logout();
-                },
-                icon: const Icon(Icons.close))
+              onPressed: () async {
+                await authCubit.logout();
+              },
+              icon: const Icon(Icons.close),
+            ),
+            IconButton( // Add the IconButton for navigating to AllUsersPage
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AllUsersPage(),
+                ));
+              },
+              icon: const Icon(Icons.group),
+            ),
           ],
         ),
         body: BlocListener<AuthCubit, AuthState>(
           bloc: authCubit,
           listenWhen: (previous, current) => current is AuthLoggedOut,
           listener: (context, state) {
-if( state  is AuthLoggedOut)     {
-  Navigator.of(context).pushReplacementNamed(AppRoutes.login);
-}     },
+            if (state is AuthLoggedOut) {
+              Navigator.of(context).pushReplacementNamed(AppRoutes.login);
+            }
+          },
           child: SafeArea(
             child: Column(
               children: [
@@ -50,14 +62,13 @@ if( state  is AuthLoggedOut)     {
                       if (state is ChatSuccess) {
                         if (state.messages.isEmpty) {
                           return const Center(
-                            child: Text("No Messges"),
+                            child: Text("No Messages"),
                           );
                         }
                         return ListView.builder(
                           itemCount: state.messages.length,
                           itemBuilder: (context, index) {
                             final message = state.messages[index];
-
                             return ListTile(
                               leading: CircleAvatar(
                                 backgroundImage:
@@ -75,7 +86,8 @@ if( state  is AuthLoggedOut)     {
                         );
                       } else {
                         return const Center(
-                            child: CircularProgressIndicator.adaptive());
+                          child: CircularProgressIndicator.adaptive(),
+                        );
                       }
                     },
                   ),

@@ -8,6 +8,7 @@ import '../utils/api_path.dart';
 import 'firestore_sservices.dart';
 
 class UserServices {
+  
   final _firebaseAuth = FirebaseAuth.instance;
   final _firestoreService = FirestoreService.instance;
 
@@ -19,4 +20,15 @@ class UserServices {
     );
     return userData;
   }
+
+  Future<List<UserData>> getUsers() async {
+  final List<UserData> users = await _firestoreService.getCollection(
+    path: ApiPath.users(),
+    builder: (data, documentId) => UserData.fromMap(data),
+  );
+  return users;
 }
+
+  
+
+  }
