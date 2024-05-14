@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "589614274538",
+    "project_id": "sky-chat-app-5aa3d",
+    "storage_bucket": "sky-chat-app-5aa3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589614274538:android:b276c25ceafa87f250c493",
+        "android_client_info": {
+          "package_name": "com.example.chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBybroZ1H-b4to-itzCIOYanI1da0Ycnm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
